@@ -222,11 +222,13 @@
                                 Delete
                             </button>
                         </form>
+                        @if($content->author_id)
                         <a href="{{ route('blog.author', $content->author_id) }}" 
                            class="inline-flex items-center px-4 py-2 bg-green-800 text-white rounded-lg hover:bg-green-900 transition-colors duration-200 text-sm font-medium">
                             <i class="fas fa-user mr-2"></i>
                             More by {{ $content->author_name }}
                         </a>
+                        @endif
                     </div>
                 </div>
             </footer>

@@ -131,6 +131,7 @@ class BlogController extends Controller
 
         $data = $request->only(['title', 'body', 'author_name']);
         $data['published_at'] = now();
+        $data['status'] = 'published';
 
         if ($request->type === 'post') {
             $data['excerpt'] = $request->excerpt;
@@ -151,7 +152,8 @@ class BlogController extends Controller
 
         $content = $modelClass::create($data);
 
-        return redirect()->route('blog.show', [$request->type, $content->id])
+        // For debugging: let's redirect to the index page instead for now
+        return redirect()->route('blog.index')
                         ->with('success', ucfirst($request->type) . ' created successfully!');
     }
 
@@ -205,7 +207,8 @@ class BlogController extends Controller
 
         $content->update($data);
 
-        return redirect()->route('blog.show', [$type, $content->id])
+        // Redirect to index instead of show to avoid ID issues
+        return redirect()->route('blog.index')
                         ->with('success', ucfirst($type) . ' updated successfully!');
     }
 

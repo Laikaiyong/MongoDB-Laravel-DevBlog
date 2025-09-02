@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dev Blog - MongoDB & Laravel')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -158,6 +159,14 @@
             
             if (!menu.contains(event.target) && !button) {
                 menu.classList.add('hidden');
+            }
+        });
+
+        // Set CSRF token for all AJAX requests
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = document.querySelector('meta[name="csrf-token"]');
+            if (token) {
+                window.csrfToken = token.getAttribute('content');
             }
         });
     </script>
